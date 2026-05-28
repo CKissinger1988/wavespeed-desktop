@@ -15,6 +15,13 @@ import {
 } from "./trigger/directory";
 import { httpTriggerDef, HttpTriggerHandler } from "./trigger/http";
 import { httpResponseDef, HttpResponseHandler } from "./output/http-response";
+// Security & Pentesting nodes
+import {
+  nmapScannerDef, NmapScannerHandler,
+  nucleiScannerDef, NucleiScannerHandler,
+  xposureScannerDef, XposureScannerHandler,
+  sqlmapScannerDef, SqlmapScannerHandler,
+} from "./security/security-tools";
 
 export function registerAllNodes(): void {
   // Trigger nodes
@@ -35,6 +42,12 @@ export function registerAllNodes(): void {
 
   // Free tools
   registerFreeToolNodes();
+
+  // Security & Pentesting nodes
+  nodeRegistry.register(nmapScannerDef, new NmapScannerHandler());
+  nodeRegistry.register(nucleiScannerDef, new NucleiScannerHandler());
+  nodeRegistry.register(xposureScannerDef, new XposureScannerHandler());
+  nodeRegistry.register(sqlmapScannerDef, new SqlmapScannerHandler());
 
   // Processing
   nodeRegistry.register(concatDef, new ConcatHandler());

@@ -517,6 +517,93 @@ export const selectDef: NodeTypeDefinition = {
   ],
 };
 
+// ─── Security & Pentesting ──────────────────────────────────────────────────
+export const nmapScannerDef: NodeTypeDefinition = {
+  type: "security/nmap",
+  category: "security",
+  label: "Nmap Port Scanner",
+  inputs: [
+    { key: "target", label: "Target Host", dataType: "text", required: true },
+  ],
+  outputs: [
+    { key: "ports", label: "Open Ports", dataType: "text", required: true },
+  ],
+  params: [
+    {
+      key: "args",
+      label: "Scan Arguments",
+      type: "string",
+      default: "-F",
+    },
+  ],
+};
+
+export const nucleiScannerDef: NodeTypeDefinition = {
+  type: "security/nuclei",
+  category: "security",
+  label: "Nuclei Scanner",
+  inputs: [
+    { key: "url", label: "Target URL", dataType: "url", required: true },
+  ],
+  outputs: [
+    { key: "vulns", label: "Vulnerabilities", dataType: "text", required: true },
+  ],
+  params: [
+    {
+      key: "severity",
+      label: "Severity Filter",
+      type: "select",
+      default: "medium,high,critical",
+      options: [
+        { label: "All", value: "info,low,medium,high,critical" },
+        { label: "Medium+", value: "medium,high,critical" },
+        { label: "High+", value: "high,critical" },
+        { label: "Critical Only", value: "critical" },
+      ],
+    },
+  ],
+};
+
+export const xposureScannerDef: NodeTypeDefinition = {
+  type: "security/xposure",
+  category: "security",
+  label: "Xposure Secrets Scanner",
+  inputs: [
+    { key: "target", label: "Codebase/Domain", dataType: "text", required: true },
+  ],
+  outputs: [
+    { key: "secrets", label: "Harvested Secrets", dataType: "text", required: true },
+  ],
+  params: [
+    {
+      key: "regexOnly",
+      label: "Regex Only Scan",
+      type: "boolean",
+      default: false,
+    },
+  ],
+};
+
+export const sqlmapScannerDef: NodeTypeDefinition = {
+  type: "security/sqlmap",
+  category: "security",
+  label: "SQLMap Injection Tester",
+  inputs: [
+    { key: "url", label: "Target URL", dataType: "url", required: true },
+  ],
+  outputs: [
+    { key: "sqliReport", label: "SQLi Report", dataType: "text", required: true },
+  ],
+  params: [
+    {
+      key: "batch",
+      label: "Batch Mode",
+      type: "boolean",
+      default: true,
+    },
+  ],
+};
+
 // ─── All definitions (registry:get-all) ───────────────────────────────────
 export const BROWSER_NODE_DEFINITIONS: NodeTypeDefinition[] = [
   mediaUploadDef,
@@ -538,4 +625,8 @@ export const BROWSER_NODE_DEFINITIONS: NodeTypeDefinition[] = [
   mediaMergerDef,
   concatDef,
   selectDef,
+  nmapScannerDef,
+  nucleiScannerDef,
+  xposureScannerDef,
+  sqlmapScannerDef,
 ];

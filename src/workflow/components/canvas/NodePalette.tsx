@@ -36,6 +36,7 @@ const catDot: Record<string, string> = {
   processing: "bg-amber-500",
   "free-tool": "bg-rose-500",
   control: "bg-cyan-500",
+  security: "bg-red-500 animate-pulse",
 };
 
 const RECENT_NODE_TYPES_KEY = "workflowRecentNodeTypes";
@@ -303,6 +304,7 @@ export function NodePalette({ definitions }: NodePaletteProps) {
     "processing",
     "control",
     "free-tool",
+    "security",
   ];
   const categoryLabel = useCallback(
     (cat: string) => t(`workflow.nodeCategory.${cat}`, cat),
